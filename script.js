@@ -7,159 +7,339 @@ document.addEventListener('DOMContentLoaded', () => {
     const answersReview = document.getElementById('answers-review');
     const testContainer = document.getElementById('test-container');
     const progressBar = document.querySelector('.progress-bar');
+    const gradeSpan = document.getElementById('grade');
+
+    // Функция для перемешивания массива
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    // Функция для получения оценки
+    function getGrade(percentage) {
+        if (percentage === 100) return '5 (отлично)';
+        if (percentage >= 80) return '4 (хорошо)';
+        if (percentage >= 60) return '3 (удовлетворительно)';
+        return '2 (неудовлетворительно)';
+    }
 
     const questions = [
         {
             question: "Что такое общество в широком смысле слова?",
-            correctAnswer: "1",
-            correctText: "Часть материального мира, обособившаяся от природы, но тесно связанная с ней"
+            answers: shuffleArray([
+                { text: "Часть материального мира, обособившаяся от природы, но тесно связанная с ней", correct: true },
+                { text: "Группа людей, объединенных общими интересами", correct: false },
+                { text: "Определенный этап исторического развития", correct: false },
+                { text: "Территория, на которой проживают люди", correct: false }
+            ])
         },
         {
             question: "Что является признаком государства?",
-            correctAnswer: "1",
-            correctText: "Суверенитет"
+            answers: shuffleArray([
+                { text: "Суверенитет", correct: true },
+                { text: "Наличие политических партий", correct: false },
+                { text: "Защита прав человека", correct: false },
+                { text: "Разделение властей", correct: false }
+            ])
         },
         {
             question: "Что относится к духовной культуре?",
-            correctAnswer: "1",
-            correctText: "Образование"
+            answers: shuffleArray([
+                { text: "Образование", correct: true },
+                { text: "Экономика", correct: false },
+                { text: "Политика", correct: false },
+                { text: "Социальные отношения", correct: false }
+            ])
         },
         {
             question: "Какая из перечисленных наук изучает общество как целостную систему?",
-            correctAnswer: "1",
-            correctText: "Социология"
+            answers: shuffleArray([
+                { text: "Социология", correct: true },
+                { text: "Философия", correct: false },
+                { text: "Биология", correct: false },
+                { text: "Химия", correct: false }
+            ])
         },
         {
             question: "Что является высшей ценностью согласно Конституции РФ?",
-            correctAnswer: "1",
-            correctText: "Человек, его права и свободы"
+            answers: shuffleArray([
+                { text: "Человек, его права и свободы", correct: true },
+                { text: "Экономика", correct: false },
+                { text: "Политика", correct: false },
+                { text: "Социальные отношения", correct: false }
+            ])
         },
         {
             question: "Что характеризует традиционное общество?",
-            correctAnswer: "1",
-            correctText: "Преобладание сельского хозяйства"
+            answers: shuffleArray([
+                { text: "Преобладание сельского хозяйства", correct: true },
+                { text: "Индустриальное развитие", correct: false },
+                { text: "Постиндустриальное развитие", correct: false },
+                { text: "Отказ от традиций", correct: false }
+            ])
         },
         {
             question: "Что является признаком правового государства?",
-            correctAnswer: "1",
-            correctText: "Верховенство закона"
+            answers: shuffleArray([
+                { text: "Верховенство закона", correct: true },
+                { text: "Автократическое правление", correct: false },
+                { text: "Политическая нестабильность", correct: false },
+                { text: "Экономический кризис", correct: false }
+            ])
         },
         {
             question: "Какой институт социализации является первичным?",
-            correctAnswer: "1",
-            correctText: "Семья"
+            answers: shuffleArray([
+                { text: "Семья", correct: true },
+                { text: "Школа", correct: false },
+                { text: "Работа", correct: false },
+                { text: "Дружба", correct: false }
+            ])
         },
         {
             question: "Что относится к факторам производства?",
-            correctAnswer: "1",
-            correctText: "Труд, земля, капитал"
+            answers: shuffleArray([
+                { text: "Труд, земля, капитал", correct: true },
+                { text: "Экономика", correct: false },
+                { text: "Политика", correct: false },
+                { text: "Социальные отношения", correct: false }
+            ])
         },
         {
             question: "Что характеризует рыночную экономику?",
-            correctAnswer: "1",
-            correctText: "Свободное ценообразование"
+            answers: shuffleArray([
+                { text: "Свободное ценообразование", correct: true },
+                { text: "Централизованное планирование", correct: false },
+                { text: "Плановая экономика", correct: false },
+                { text: "Торговля", correct: false }
+            ])
         },
         {
             question: "Что является признаком демократии?",
-            correctAnswer: "1",
-            correctText: "Разделение властей"
+            answers: shuffleArray([
+                { text: "Разделение властей", correct: true },
+                { text: "Автократическое правление", correct: false },
+                { text: "Наличие одной партии", correct: false },
+                { text: "Экономический кризис", correct: false }
+            ])
         },
         {
             question: "Какой вид деятельности характерен только для человека?",
-            correctAnswer: "1",
-            correctText: "Творчество"
+            answers: shuffleArray([
+                { text: "Творчество", correct: true },
+                { text: "Движение", correct: false },
+                { text: "Растение", correct: false },
+                { text: "Животное", correct: false }
+            ])
         },
         {
             question: "Что является формой духовной культуры?",
-            correctAnswer: "1",
-            correctText: "Религия"
+            answers: shuffleArray([
+                { text: "Религия", correct: true },
+                { text: "Политика", correct: false },
+                { text: "Экономика", correct: false },
+                { text: "Социальные отношения", correct: false }
+            ])
         },
         {
             question: "Что относится к социальным потребностям человека?",
-            correctAnswer: "1",
-            correctText: "Общение"
+            answers: shuffleArray([
+                { text: "Общение", correct: true },
+                { text: "Экономика", correct: false },
+                { text: "Политика", correct: false },
+                { text: "Социальные отношения", correct: false }
+            ])
         },
         {
             question: "Что является признаком нации?",
-            correctAnswer: "1",
-            correctText: "Общая культура и язык"
+            answers: shuffleArray([
+                { text: "Общая культура и язык", correct: true },
+                { text: "Экономика", correct: false },
+                { text: "Политика", correct: false },
+                { text: "Социальные отношения", correct: false }
+            ])
         },
         {
             question: "Какой тип общества характеризуется информатизацией?",
-            correctAnswer: "1",
-            correctText: "Постиндустриальное"
+            answers: shuffleArray([
+                { text: "Постиндустриальное", correct: true },
+                { text: "Традиционное", correct: false },
+                { text: "Индустриальное", correct: false },
+                { text: "Постмодернистское", correct: false }
+            ])
         },
         {
             question: "Что относится к глобальным проблемам человечества?",
-            correctAnswer: "1",
-            correctText: "Экологический кризис"
+            answers: shuffleArray([
+                { text: "Экологический кризис", correct: true },
+                { text: "Экономический рост", correct: false },
+                { text: "Политическая стабильность", correct: false },
+                { text: "Социальное равенство", correct: false }
+            ])
         },
         {
             question: "Что является признаком гражданского общества?",
-            correctAnswer: "1",
-            correctText: "Независимость от государства"
+            answers: shuffleArray([
+                { text: "Независимость от государства", correct: true },
+                { text: "Зависимость от государства", correct: false },
+                { text: "Наличие одной партии", correct: false },
+                { text: "Экономический кризис", correct: false }
+            ])
         },
         {
             question: "Что характеризует рыночную экономику?",
-            correctAnswer: "1",
-            correctText: "Конкуренция производителей"
+            answers: shuffleArray([
+                { text: "Конкуренция производителей", correct: true },
+                { text: "Централизованное планирование", correct: false },
+                { text: "Плановая экономика", correct: false },
+                { text: "Торговля", correct: false }
+            ])
         },
         {
             question: "Что является особенностью морали как социальной нормы?",
-            correctAnswer: "1",
-            correctText: "Опора на общественное мнение"
+            answers: shuffleArray([
+                { text: "Опора на общественное мнение", correct: true },
+                { text: "Автократическое правление", correct: false },
+                { text: "Политическая нестабильность", correct: false },
+                { text: "Экономический кризис", correct: false }
+            ])
         },
         {
             question: "Что является признаком правонарушения?",
-            correctAnswer: "1",
-            correctText: "Противоправность деяния"
+            answers: shuffleArray([
+                { text: "Противоправность деяния", correct: true },
+                { text: "Законное поведение", correct: false },
+                { text: "Политическая нестабильность", correct: false },
+                { text: "Экономический кризис", correct: false }
+            ])
         },
         {
             question: "Какой признак характеризует демократическое государство?",
-            correctAnswer: "1",
-            correctText: "Политический плюрализм"
+            answers: shuffleArray([
+                { text: "Политический плюрализм", correct: true },
+                { text: "Автократическое правление", correct: false },
+                { text: "Наличие одной партии", correct: false },
+                { text: "Экономический кризис", correct: false }
+            ])
         },
         {
             question: "Что относится к естественным правам человека?",
-            correctAnswer: "1",
-            correctText: "Право на жизнь"
+            answers: shuffleArray([
+                { text: "Право на жизнь", correct: true },
+                { text: "Право на образование", correct: false },
+                { text: "Право на труд", correct: false },
+                { text: "Право на свободу слова", correct: false }
+            ])
         },
         {
             question: "Что является функцией семьи?",
-            correctAnswer: "1",
-            correctText: "Социализация детей"
+            answers: shuffleArray([
+                { text: "Социализация детей", correct: true },
+                { text: "Экономическая деятельность", correct: false },
+                { text: "Политическая деятельность", correct: false },
+                { text: "Социальные отношения", correct: false }
+            ])
         },
         {
             question: "Что характеризует научное познание?",
-            correctAnswer: "1",
-            correctText: "Системность"
+            answers: shuffleArray([
+                { text: "Системность", correct: true },
+                { text: "Автократическое правление", correct: false },
+                { text: "Политическая нестабильность", correct: false },
+                { text: "Экономический кризис", correct: false }
+            ])
         },
         {
             question: "Что является признаком этноса?",
-            correctAnswer: "1",
-            correctText: "Общие традиции и обычаи"
+            answers: shuffleArray([
+                { text: "Общие традиции и обычаи", correct: true },
+                { text: "Экономика", correct: false },
+                { text: "Политика", correct: false },
+                { text: "Социальные отношения", correct: false }
+            ])
         },
         {
             question: "Что относится к политическим правам граждан?",
-            correctAnswer: "1",
-            correctText: "Право избирать и быть избранным"
+            answers: shuffleArray([
+                { text: "Право избирать и быть избранным", correct: true },
+                { text: "Право на труд", correct: false },
+                { text: "Право на образование", correct: false },
+                { text: "Право на свободу слова", correct: false }
+            ])
         },
         {
             question: "Что является признаком социальной стратификации?",
-            correctAnswer: "1",
-            correctText: "Различие в доходах"
+            answers: shuffleArray([
+                { text: "Различие в доходах", correct: true },
+                { text: "Равенство возможностей", correct: false },
+                { text: "Автократическое правление", correct: false },
+                { text: "Экономический кризис", correct: false }
+            ])
         },
         {
             question: "Что характеризует командную экономику?",
-            correctAnswer: "1",
-            correctText: "Централизованное планирование"
+            answers: shuffleArray([
+                { text: "Централизованное планирование", correct: true },
+                { text: "Свободное ценообразование", correct: false },
+                { text: "Плановая экономика", correct: false },
+                { text: "Торговля", correct: false }
+            ])
         },
         {
             question: "Что является признаком прогресса общества?",
-            correctAnswer: "1",
-            correctText: "Развитие науки и технологий"
+            answers: shuffleArray([
+                { text: "Развитие науки и технологий", correct: true },
+                { text: "Отказ от традиций", correct: false },
+                { text: "Усиление религиозности", correct: false },
+                { text: "Военная экспансия", correct: false }
+            ])
         }
     ];
+
+    // Создаем HTML для вопросов
+    function createQuestions() {
+        const form = document.getElementById('quiz-form');
+        form.innerHTML = ''; // Очищаем форму
+
+        questions.forEach((q, index) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            
+            const questionText = document.createElement('p');
+            questionText.textContent = `${index + 1}. ${q.question}`;
+            questionDiv.appendChild(questionText);
+
+            q.answers.forEach((answer, answerIndex) => {
+                const label = document.createElement('label');
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = `q${index + 1}`;
+                input.value = answer.correct ? '1' : '0';
+                label.appendChild(input);
+                label.appendChild(document.createTextNode(` ${answer.text}`));
+                questionDiv.appendChild(label);
+            });
+
+            form.appendChild(questionDiv);
+        });
+
+        // Добавляем кнопку "Завершить тест"
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.id = 'finish-test';
+        button.className = 'btn';
+        button.textContent = 'Завершить тест';
+        form.appendChild(button);
+    }
+
+    // Создаем вопросы при загрузке страницы
+    createQuestions();
+
+    // Обновляем ссылку на кнопку после её создания
+    const newFinishButton = document.getElementById('finish-test');
 
     // Update progress bar when radio buttons are clicked
     document.querySelectorAll('input[type="radio"]').forEach(radio => {
@@ -173,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
         progressBar.style.width = `${progress}%`;
     }
 
-    finishButton.addEventListener('click', () => {
+    newFinishButton.addEventListener('click', () => {
         let score = 0;
         let reviewHTML = '';
         let allAnswered = true;
@@ -187,17 +367,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            const isCorrect = selectedAnswer.value === q.correctAnswer;
+            const isCorrect = selectedAnswer.value === '1';
             if (isCorrect) {
                 score++;
             }
 
             const selectedText = selectedAnswer.parentElement.textContent.trim();
+            const correctAnswer = q.answers.find(a => a.correct).text;
+
             reviewHTML += `
                 <p class="${isCorrect ? 'correct' : 'incorrect'}">
                     ${questionNumber}. ${q.question}<br>
                     Ваш ответ: ${selectedText}<br>
-                    ${isCorrect ? '✓ Правильно!' : `✗ Неправильно. Правильный ответ: ${q.correctText}`}
+                    ${isCorrect ? '✓ Правильно!' : `✗ Неправильно. Правильный ответ: ${correctAnswer}`}
                 </p>
             `;
         });
@@ -212,6 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
         scoreSpan.textContent = score;
         const percentage = Math.round((score / questions.length) * 100);
         percentageSpan.textContent = percentage;
+        gradeSpan.textContent = getGrade(percentage);
         answersReview.innerHTML = reviewHTML;
 
         // Scroll to top to see results
